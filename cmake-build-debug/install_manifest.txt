@@ -1,0 +1,3 @@
+/usr/local/lib/libEventQueue.dylib
+/usr/local/include/EventQueue/Event.h
+/usr/local/include/EventQueue/MessageQueue.h
