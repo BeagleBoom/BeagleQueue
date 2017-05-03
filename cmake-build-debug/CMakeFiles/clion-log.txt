@@ -1,5 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/torbenhartmann/Documents/Kunden/FH/EventQueue
--- Found Poco: optimized;/usr/local/lib/libPocoJSON.dylib;debug;/usr/local/lib/libPocoJSONd.dylib;optimized;/usr/local/lib/libPocoUtil.dylib;debug;/usr/local/lib/libPocoUtild.dylib;optimized;/usr/local/lib/libPocoFoundation.dylib;debug;/usr/local/lib/libPocoFoundationd.dylib
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/torbenhartmann/Documents/Kunden/FH/EventQueue/cmake-build-debug
