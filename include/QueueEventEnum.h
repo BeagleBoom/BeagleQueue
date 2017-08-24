@@ -8,7 +8,8 @@ enum class QueueEventEnum {
     BUTTON_DOWN,
     BUTTON_UP,
     ROTARY_LEFT,
-    ROTARY_RIGHT
+    ROTARY_RIGHT,
+    ADC_VALUES
 };
 
 #endif //SAMPLERV2_QUEUEEVENTENUM_H
