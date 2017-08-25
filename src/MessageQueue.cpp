@@ -7,7 +7,6 @@
 
 MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
     this->queueId = msgget((key_t) 1337, 0666 | IPC_CREAT);
-
 }
 
 

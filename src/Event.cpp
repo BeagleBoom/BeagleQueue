@@ -2,7 +2,7 @@
 // Created by Torben Hartmann on 03.05.17.
 //
 #include "Event.h"
-
+#include <string.h>
 
 Event::Event(int event) : eventType(event) {
     this->parsed = true;
@@ -12,14 +12,14 @@ Event::Event(int event) : eventType(event) {
 void Event::parse() {
     if (this->parsed)return;
     Parser loParser;
-    Poco::Dynamic::Var loParsedJson = loParser.parse("[" + this->content + "]");
+    Poco::Dynamic::Var loParsedJson = loParser.parse(this->content);
     Poco::Dynamic::Var loParsedJsonResult = loParser.result();
     this->data = loParsedJsonResult.extract<Array::Ptr>();
     this->parsed = true;
 }
 
 Event::Event(net_event event) {
-    this->content = event.data;
+    this->content = std::string(event.data);
     this->eventType = event.id;
 }
 
@@ -63,11 +63,12 @@ net_event Event::generatePackage() {
     std::ostringstream oss;
     Poco::JSON::Stringifier::stringify(this->data, oss);
     std::string data = oss.str();
-    net_event event{
-            1,
-            this->eventType,
-            data.substr(1, data.size() - 2)
-    };
+    net_event event;
+
+    event.id = this->eventType;
+    event.recipient = 1;
+    strcpy(event.data, data.c_str());
+
     return event;
 }
 

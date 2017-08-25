@@ -11,13 +11,14 @@
 #include <Poco/JSON/Parser.h>
 
 using namespace Poco::JSON;
+
 /**
  * Struct for Event Serialization
  */
 typedef struct {
     long int recipient;
     unsigned int id;
-    std::string data;
+    char data[1024];
 } net_event;
 
 class Event {
