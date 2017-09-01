@@ -11,7 +11,7 @@ file(GLOB SOURCES src/*.cpp)
 include_directories(include)
 
 # Create shared library
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${SOURCES} src/Router.cpp include/Router.h include/EventType.h include/Event.h include/MessageQueue.h)
 
 # Install library
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)

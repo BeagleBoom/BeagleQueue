@@ -1,10 +1,8 @@
 //
 // Created by Torben Hartmann on 03.05.17.
 //
-#include "Event.h"
-#include <string.h>
-
-Event::Event(int event) : eventType(event) {
+#include "../include/Event.h"
+Event::Event(EventType event) : eventType(event) {
     this->parsed = true;
     this->data = new Array;
 }
@@ -20,11 +18,14 @@ void Event::parse() {
 
 Event::Event(net_event event) {
     this->content = std::string(event.data);
-    this->eventType = event.id;
+    this->eventType = static_cast<EventType>(event.id);
+    this->event = event;
+    this->generated = true;
 }
 
 void Event::addInt(int data) {
     this->data->add(data);
+    this->generated = true;
 }
 
 int Event::getInt(unsigned int position) {
@@ -34,6 +35,7 @@ int Event::getInt(unsigned int position) {
 
 void Event::addFloat(float data) {
     this->data->add(data);
+    this->generated = true;
 }
 
 float Event::getFloat(unsigned int position) {
@@ -43,6 +45,7 @@ float Event::getFloat(unsigned int position) {
 
 void Event::addBool(bool data) {
     this->data->add(data);
+    this->generated = true;
 }
 
 bool Event::getBool(unsigned int position) {
@@ -52,6 +55,7 @@ bool Event::getBool(unsigned int position) {
 
 void Event::addString(std::string data) {
     this->data->add(data);
+    this->generated = true;
 }
 
 std::string Event::getString(unsigned int position) {
@@ -60,19 +64,22 @@ std::string Event::getString(unsigned int position) {
 }
 
 net_event Event::generatePackage() {
-    std::ostringstream oss;
-    Poco::JSON::Stringifier::stringify(this->data, oss);
-    std::string data = oss.str();
-    net_event event;
+    if(!generated){
+        std::ostringstream oss;
+        Poco::JSON::Stringifier::stringify(this->data, oss);
+        std::string data = oss.str();
+        net_event event;
 
-    event.id = this->eventType;
-    event.recipient = 1;
-    strcpy(event.data, data.c_str());
-
-    return event;
+        event.id = static_cast<unsigned int>(this->eventType);
+        event.recipient = 1;
+        strcpy(event.data, data.c_str());
+        this->event=event;
+        this->generated=true;
+    }
+    return this->event;
 }
 
-unsigned int Event::getType() {
+EventType Event::getType() {
     return this->eventType;
 }
 
@@ -80,23 +87,23 @@ size_t Event::getPayloadCount() {
     return this->data->size();
 }
 
-bool Event::isInt(int position) {
+bool Event::isInt(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isInteger();
 }
 
-bool Event::isFloat(int position) {
+bool Event::isFloat(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isNumeric()
            && !this->data->get(position).isInteger();
 }
 
-bool Event::isString(int position) {
+bool Event::isString(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isString();
 }
 
-bool Event::isBool(int position) {
+bool Event::isBool(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isBoolean();
 }

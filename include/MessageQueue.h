@@ -42,7 +42,7 @@ public:
      * Looks for an Event and returns it, if one was present.
      * @return Pair, where the second member is true when a Message has been received
      */
-    std::pair<Event, bool> receiveNoWait();
+    Event receiveNoWait();
 
 private:
     int identifier;

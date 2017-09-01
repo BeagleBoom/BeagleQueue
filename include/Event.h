@@ -9,6 +9,7 @@
 #include <Poco/Dynamic/Var.h>
 #include <Poco/JSON/JSON.h>
 #include <Poco/JSON/Parser.h>
+#include "EventType.h"
 
 using namespace Poco::JSON;
 
@@ -27,7 +28,7 @@ public:
      * Generates a new Event with a corresponding identifier
      * @param event
      */
-    Event(int event);
+    Event(EventType event);
 
     /**
      * Parses an incoming Event
@@ -99,42 +100,44 @@ public:
      * @param position
      * @return
      */
-    bool isInt(int position);
+    bool isInt(unsigned int position);
 
     /**
      * Returns true if the Payload has an Element at the given position which is of type Float
      * @param position
      * @return
      */
-    bool isFloat(int position);
+    bool isFloat(unsigned int position);
 
     /**
      * Returns true if the Payload has an Element at the given position which is of type String
      * @param position
      * @return
      */
-    bool isString(int position);
+    bool isString(unsigned int position);
 
     /**
      * Returns true if the Payload has an Element at the given position which is of type Boolean
      * @param position
      * @return
      */
-    bool isBool(int position);
+    bool isBool(unsigned int position);
 
     /**
      * Returns the Event Identifier
      * @return
      */
-    unsigned int getType();
+    EventType getType();
 
 private:
     void parse();
 
-    unsigned int eventType;
+    EventType eventType;
     std::string content;
     bool parsed = false;
     Array::Ptr data;
+    bool generated = false;
+    net_event event;
 };
 
 
