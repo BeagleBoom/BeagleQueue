@@ -11,6 +11,7 @@ enum class EventType {
     BUTTON_UP,
     ROTARY_LEFT,
     ROTARY_RIGHT,
-    ADC_VALUES
+    ADC_VALUES,
+    MENU_ITEMS
 };
 #endif //EVENTQUEUE_ECENTTYPE_H
