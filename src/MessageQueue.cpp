@@ -8,6 +8,10 @@
 
 MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
     this->queueId = msgget((key_t) 1337, 0666 | IPC_CREAT);
+    struct msqid_ds ds = {0};
+    msgctl(this->queueId,IPC_STAT,&ds);
+    ds.msg_qbytes = 1024*1024;
+    msgctl(this->queueId,IPC_SET,&ds);
 }
 
 
