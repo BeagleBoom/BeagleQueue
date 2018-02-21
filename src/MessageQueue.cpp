@@ -5,20 +5,21 @@
 #include "../include/MessageQueue.h"
 #include <iostream>
 #include <errno.h>
+#include <Event.h>
 
 MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
     this->queueId = msgget((key_t) 1337, 0666 | IPC_CREAT);
     struct msqid_ds ds = {0};
-    msgctl(this->queueId,IPC_STAT,&ds);
-    ds.msg_qbytes = 1024*1024;
-    msgctl(this->queueId,IPC_SET,&ds);
+    msgctl(this->queueId, IPC_STAT, &ds);
+    ds.msg_qbytes = 1024 * 1024;
+    msgctl(this->queueId, IPC_SET, &ds);
 }
 
 
 void MessageQueue::send(Event event, int recipient) {
     net_event pkg = event.generatePackage();
     pkg.recipient = recipient;
-    std::cout << msgsnd(this->queueId, (void *) &pkg, sizeof(pkg), IPC_NOWAIT) << std::endl;
+    std::cout << msgsnd(this->queueId, (void *) &pkg, sizeof(pkg.id) + sizeof(pkg.data), IPC_NOWAIT) << std::endl;
     std::cout << strerror(errno) << std::endl;
 }
 
