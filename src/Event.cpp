@@ -2,6 +2,7 @@
 // Created by Torben Hartmann on 03.05.17.
 //
 #include "../include/Event.h"
+
 Event::Event(EventType event) : eventType(event) {
     this->parsed = true;
     this->data = new Array;
@@ -64,17 +65,17 @@ std::string Event::getString(unsigned int position) {
 }
 
 net_event Event::generatePackage() {
-    if(!generated){
+    if (!generated) {
         std::ostringstream oss;
         Poco::JSON::Stringifier::stringify(this->data, oss);
         std::string data = oss.str();
         net_event event;
-
+        std::cout << data << std::endl;
         event.id = static_cast<unsigned int>(this->eventType);
         event.recipient = 1;
         strncpy(event.data, data.c_str(), sizeof(event.data));
-        this->event=event;
-        this->generated=true;
+        this->event = event;
+        this->generated = true;
     }
     return this->event;
 }
