@@ -21,12 +21,12 @@ Event::Event(net_event event) {
     this->content = std::string(event.data);
     this->eventType = static_cast<EventType>(event.id);
     this->event = event;
-    this->generated = true;
+    this->generated = false;
 }
 
 void Event::addInt(int data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 int Event::getInt(unsigned int position) {
@@ -36,7 +36,7 @@ int Event::getInt(unsigned int position) {
 
 void Event::addFloat(float data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 float Event::getFloat(unsigned int position) {
@@ -46,7 +46,7 @@ float Event::getFloat(unsigned int position) {
 
 void Event::addBool(bool data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 bool Event::getBool(unsigned int position) {
@@ -56,7 +56,7 @@ bool Event::getBool(unsigned int position) {
 
 void Event::addString(std::string data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 std::string Event::getString(unsigned int position) {
