@@ -19,8 +19,8 @@ MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
 void MessageQueue::send(Event event, int recipient) {
     net_event pkg = event.generatePackage();
     pkg.recipient = recipient;
-    std::cout << msgsnd(this->queueId, (void *) &pkg, sizeof(pkg.id) + sizeof(pkg.data), IPC_NOWAIT) << std::endl;
-    std::cout << strerror(errno) << std::endl;
+    msgsnd(this->queueId, (void *) &pkg, sizeof(pkg.id) + sizeof(pkg.data), IPC_NOWAIT);
+    std::cout << pkg.data << std::endl;
 }
 
 void MessageQueue::send(Event event) {
