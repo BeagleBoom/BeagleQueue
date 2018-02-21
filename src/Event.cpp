@@ -70,7 +70,7 @@ net_event Event::generatePackage() {
         Poco::JSON::Stringifier::stringify(this->data, oss);
         std::string data = oss.str();
         net_event event;
-        std::cout << data << std::endl;
+        std::cout <<"DATA............."<< data << std::endl;
         event.id = static_cast<unsigned int>(this->eventType);
         event.recipient = 1;
         strncpy(event.data, data.c_str(), sizeof(event.data));
