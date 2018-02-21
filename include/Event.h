@@ -129,6 +129,8 @@ public:
      */
     EventType getType();
 
+    virtual ~Event();
+
 private:
     void parse();
 

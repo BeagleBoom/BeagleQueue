@@ -107,3 +107,7 @@ bool Event::isBool(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isBoolean();
 }
+
+Event::~Event() {
+
+}
