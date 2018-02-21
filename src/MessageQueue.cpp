@@ -3,6 +3,8 @@
 //
 
 #include "../include/MessageQueue.h"
+#include <iostream>
+#include <errno.h>
 
 MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
     this->queueId = msgget((key_t) 1337, 0666 | IPC_CREAT);
@@ -12,7 +14,8 @@ MessageQueue::MessageQueue(int identifier) : identifier(identifier) {
 void MessageQueue::send(Event event, int recipient) {
     net_event pkg = event.generatePackage();
     pkg.recipient = recipient;
-    msgsnd(this->queueId, (void *) &pkg, sizeof(pkg), IPC_NOWAIT);
+    std::cout << msgsnd(this->queueId, (void *) &pkg, sizeof(pkg), IPC_NOWAIT) << std::endl;
+    std::cout << strerror(errno) << std::endl;
 }
 
 void MessageQueue::send(Event event) {

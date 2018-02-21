@@ -72,7 +72,7 @@ net_event Event::generatePackage() {
 
         event.id = static_cast<unsigned int>(this->eventType);
         event.recipient = 1;
-        strcpy(event.data, data.c_str());
+        strncpy(event.data, data.c_str(), sizeof(event.data));
         this->event=event;
         this->generated=true;
     }
