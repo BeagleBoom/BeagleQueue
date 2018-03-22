@@ -12,6 +12,7 @@ enum class EventType {
     ROTARY_LEFT,
     ROTARY_RIGHT,
     ADC_VALUES,
-    MENU_ITEMS
+    MENU_ITEMS,
+    ADSR
 };
 #endif //EVENTQUEUE_ECENTTYPE_H
