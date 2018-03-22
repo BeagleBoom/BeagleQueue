@@ -19,7 +19,7 @@ using namespace Poco::JSON;
 typedef struct {
     long int recipient;
     unsigned int id;
-    char data[8192];
+    char data[512];
 } net_event;
 
 class Event {
@@ -128,6 +128,8 @@ public:
      * @return
      */
     EventType getType();
+
+    virtual ~Event();
 
 private:
     void parse();

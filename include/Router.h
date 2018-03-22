@@ -8,6 +8,7 @@
 
 #include "EventType.h"
 #include "MessageQueue.h"
+#include <memory>
 
 class Router {
 public:

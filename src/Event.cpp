@@ -2,6 +2,7 @@
 // Created by Torben Hartmann on 03.05.17.
 //
 #include "../include/Event.h"
+
 Event::Event(EventType event) : eventType(event) {
     this->parsed = true;
     this->data = new Array;
@@ -20,12 +21,12 @@ Event::Event(net_event event) {
     this->content = std::string(event.data);
     this->eventType = static_cast<EventType>(event.id);
     this->event = event;
-    this->generated = true;
+    this->generated = false;
 }
 
 void Event::addInt(int data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 int Event::getInt(unsigned int position) {
@@ -35,7 +36,7 @@ int Event::getInt(unsigned int position) {
 
 void Event::addFloat(float data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 float Event::getFloat(unsigned int position) {
@@ -45,7 +46,7 @@ float Event::getFloat(unsigned int position) {
 
 void Event::addBool(bool data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 bool Event::getBool(unsigned int position) {
@@ -55,7 +56,7 @@ bool Event::getBool(unsigned int position) {
 
 void Event::addString(std::string data) {
     this->data->add(data);
-    this->generated = true;
+    this->generated = false;
 }
 
 std::string Event::getString(unsigned int position) {
@@ -64,17 +65,17 @@ std::string Event::getString(unsigned int position) {
 }
 
 net_event Event::generatePackage() {
-    if(!generated){
+    if (!generated) {
         std::ostringstream oss;
         Poco::JSON::Stringifier::stringify(this->data, oss);
         std::string data = oss.str();
         net_event event;
-
+        std::cout <<"DATA............."<< data << std::endl;
         event.id = static_cast<unsigned int>(this->eventType);
         event.recipient = 1;
-        strcpy(event.data, data.c_str());
-        this->event=event;
-        this->generated=true;
+        strncpy(event.data, data.c_str(), sizeof(event.data));
+        this->event = event;
+        this->generated = true;
     }
     return this->event;
 }
@@ -106,4 +107,8 @@ bool Event::isString(unsigned int position) {
 bool Event::isBool(unsigned int position) {
     return this->getPayloadCount() < position
            && this->data->get(position).isBoolean();
+}
+
+Event::~Event() {
+
 }
