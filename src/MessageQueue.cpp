@@ -24,7 +24,7 @@ void MessageQueue::send(Event event, int recipient) {
 }
 
 void MessageQueue::send(Event event) {
-    MessageQueue::send(event, 1);
+    MessageQueue::send(event, this->defaultReceiver);
 }
 
 Event MessageQueue::receiveNoWait() {
@@ -45,6 +45,10 @@ Event MessageQueue::receive() {
         exit(EXIT_FAILURE);
     }
     return Event(data);
+}
+
+MessageQueue::MessageQueue(int identifier, int defaultReceiver) : MessageQueue(identifier) {
+    this->defaultReceiver = defaultReceiver;
 }
 
 

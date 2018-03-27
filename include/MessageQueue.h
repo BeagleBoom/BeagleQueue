@@ -18,6 +18,8 @@ public:
      */
     MessageQueue(int identifier);
 
+    MessageQueue(int identifier, int defaultReceiver);
+
     /**
      * Sends an Event to a specified Handler
      * @param event
@@ -47,6 +49,7 @@ public:
 private:
     int identifier;
     int queueId;
+    int defaultReceiver = 1;
 };
 
 
