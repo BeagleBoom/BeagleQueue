@@ -87,6 +87,7 @@ EventType Event::getType() {
 }
 
 size_t Event::getPayloadCount() {
+    this->parse();
     return this->data->size();
 }
 
