@@ -18,7 +18,7 @@ void Event::parse() {
 }
 
 Event::Event(net_event event) {
-    std::cout << static_cast<EventType>(event.id) << "---" << std::string(event.data) << "---" << std::endl;
+    std::cout << (event.id) << "---" << std::string(event.data) << "---" << std::endl;
     this->content = std::string(event.data);
 
     this->eventType = static_cast<EventType>(event.id);
