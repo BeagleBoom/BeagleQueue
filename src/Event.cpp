@@ -18,7 +18,7 @@ void Event::parse() {
 }
 
 Event::Event(net_event event) {
-    std::cout<<std::string(event.data)<<std::endl;
+    std::cout << static_cast<EventType>(event.id) << "---" << std::string(event.data) << "---" << std::endl;
     this->content = std::string(event.data);
 
     this->eventType = static_cast<EventType>(event.id);
@@ -72,7 +72,7 @@ net_event Event::generatePackage() {
         Poco::JSON::Stringifier::stringify(this->data, oss);
         std::string data = oss.str();
         net_event event;
-        std::cout <<"DATA............."<< data << std::endl;
+        std::cout << "DATA............." << data << std::endl;
         event.id = static_cast<unsigned int>(this->eventType);
         event.recipient = 1;
         strncpy(event.data, data.c_str(), sizeof(event.data));
