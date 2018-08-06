@@ -1,7 +1,3 @@
-//
-// Created by Torben Hartmann on 03.05.17.
-//
-
 #include "../include/MessageQueue.h"
 #include <iostream>
 #include <errno.h>

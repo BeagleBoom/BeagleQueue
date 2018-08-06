@@ -1,7 +1,3 @@
-//
-// Created by Torben Hartmann on 30.08.17.
-//
-
 #ifndef EVENTQUEUE_ECENTTYPE_H
 #define EVENTQUEUE_ECENTTYPE_H
 

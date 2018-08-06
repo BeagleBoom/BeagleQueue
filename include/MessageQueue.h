@@ -1,7 +1,3 @@
-//
-// Created by Torben Hartmann on 03.05.17.
-//
-
 #ifndef EVENTQUEUE_MESSAGEQUEUE_H
 #define EVENTQUEUE_MESSAGEQUEUE_H
 

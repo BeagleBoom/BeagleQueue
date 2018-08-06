@@ -1,6 +1,3 @@
-//
-// Created by Torben Hartmann on 03.05.17.
-//
 #include "../include/Event.h"
 
 Event::Event(EventType event) : eventType(event) {

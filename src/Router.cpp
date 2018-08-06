@@ -1,6 +1,3 @@
-//
-// Created by Torben Hartmann on 30.08.17.
-//
 #include "../include/Router.h"
 
 Router::Router(int id) {
